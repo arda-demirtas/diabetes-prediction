@@ -22,7 +22,7 @@ X_train = sc.fit_transform(x_train)
 X_test = sc.transform(x_test)
 
 
-knn = KNeighborsClassifier(n_neighbors=10)
+knn = KNeighborsClassifier(n_neighbors=20)
 knn.fit(X_train, y_train.reshape(y_train.shape[0]))
 
 pre = []
@@ -50,6 +50,7 @@ while True:
     print("type 1 to show the graph of patient and healthy people")
     print("type 2 to see the best n neighbour for this specific job")
     print("type 3 scatter the graph of n neighbour and score")
+    print("type 4 to predict")
     opt = int(input("Type a number : "))
 
     if opt == 1:
@@ -70,6 +71,20 @@ while True:
         plt.xlabel('n_neighbour')
         plt.ylabel('score')
         plt.show()
+
+    elif opt == 4:
+        pregnancy = float(input("Enter pregnancy : "))
+        glucose = float(input("Enter glucose : "))
+        blood_pressure = float(input("Enter blood pressure : "))
+        skin_tickness = float(input("Enter skin tickness : "))
+        insulin = float(input("Enter insulin : "))
+        bmi = float(input("Enter bmi : "))
+        DiabetesPedigreeFunction = float(input("Enter Diabetes Pedigree Function : "))
+        age = float(input("Enter Age : "))
+        x_pred = np.array([[pregnancy, glucose, blood_pressure, skin_tickness, insulin, bmi, DiabetesPedigreeFunction, age]])
+        X_pred = sc.transform(x_pred)
+        print("prediction : " + str(knn.predict(X_pred)[0]))
+        
 
     print("###################################")
 
